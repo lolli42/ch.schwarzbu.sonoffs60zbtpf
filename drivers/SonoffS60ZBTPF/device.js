@@ -1,9 +1,9 @@
 'use strict';
 
 const { ZigBeeDevice } = require('homey-zigbeedriver');
-const {debug, CLUSTER} = require("zigbee-clusters");
-
-debug(true);
+const {CLUSTER} = require("zigbee-clusters");
+//const {debug, CLUSTER} = require("zigbee-clusters");
+// debug(true);
 
 class SonoffS60ZBTPF extends ZigBeeDevice {
   async onNodeInit({ zclNode }) {
