@@ -7,7 +7,6 @@ debug(true);
 
 class SonoffS60ZBTPF extends ZigBeeDevice {
   async onNodeInit({ zclNode }) {
-    this.log('init');
     if (this.hasCapability('onoff')) {
       this.registerCapability(
         'onoff',
@@ -22,6 +21,11 @@ class SonoffS60ZBTPF extends ZigBeeDevice {
           //  this.log(report);
           //  return report === true;
           //},
+          getOpts: {
+            getOnOnline: true,
+            getOnStart: true,
+            pollInterval: 600000 // Get a current value once an hour to be sure
+          },
           reportOpts: {
             configureAttributeReporting: {
               minInterval: 1, // Device does not send data when on/off switch is
@@ -32,8 +36,83 @@ class SonoffS60ZBTPF extends ZigBeeDevice {
           },
         }
       );
-
     }
+
+    if (this.hasCapability('measure_voltage')) {
+      this.registerCapability(
+        'measure_voltage',
+        CLUSTER.ELECTRICAL_MEASUREMENT,
+        {
+          reportParser(value) {
+            //this.log(value);
+            return value / 100;
+          },
+          getOpts: {
+            getOnOnline: true,
+            getOnStart: true,
+            pollInterval: 600000 // Get a current value once an hour
+          },
+          reportOpts: {
+            configureAttributeReporting: {
+              minInterval: 60, // Don't send data more than once per minute.
+              maxInterval: 600,
+              minChange: 500, // I hope that's 500 mV
+            },
+          },
+        }
+      );
+    }
+
+    if (this.hasCapability('measure_power')) {
+      this.registerCapability(
+        'measure_power',
+        CLUSTER.ELECTRICAL_MEASUREMENT,
+        {
+          reportParser(value) {
+            //this.log(value);
+            return value;
+          },
+          getOpts: {
+            getOnOnline: true,
+            getOnStart: true,
+            pollInterval: 600000 // Get a current value once an hour
+          },
+          reportOpts: {
+            configureAttributeReporting: {
+              minInterval: 10, // Don't send data more often than every 10 seconds.
+              maxInterval: 600,
+              minChange: 10, // Send when power changed for more than 10W
+            },
+          },
+        }
+      );
+    }
+
+    if (this.hasCapability('measure_current')) {
+      this.registerCapability(
+        'measure_current',
+        CLUSTER.ELECTRICAL_MEASUREMENT,
+        {
+          reportParser(value) {
+            //this.log(value);
+            return value / 100;
+          },
+          getOpts: {
+            getOnOnline: true,
+            getOnStart: true,
+            pollInterval: 600000 // Get a current value once an hour
+          },
+          reportOpts: {
+            configureAttributeReporting: {
+              minInterval: 10, // Don't send data more often than every 10 seconds.
+              maxInterval: 600,
+              minChange: 10, // Send when current changed for more than 0.1A
+            },
+          },
+        }
+      );
+    }
+
   }
 }
 
