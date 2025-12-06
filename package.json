@@ -2,6 +2,10 @@
   "name": "ch.schwarzbu.sonoffs60zbtpf",
   "version": "1.0.0",
   "main": "app.js",
+  "dependencies": {
+    "homey-zigbeedriver": "^1.6.2",
+    "zigbee-clusters": "^1.4.0"
+  },
   "scripts": {
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore ."
   },
