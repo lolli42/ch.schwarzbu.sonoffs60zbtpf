@@ -7,19 +7,18 @@
     "local"
   ],
   "name": {
-    "en": "foo"
+    "en": "Sonoff S60ZBTPF"
   },
   "description": {
-    "en": "bar"
+    "en": "Adds support for Sonoff S60ZBTPF Smart Plug"
   },
   "category": [
-    "lights"
+    "appliances"
   ],
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
-    "large": "/assets/images/large.png",
-    "xlarge": "/assets/images/xlarge.png"
+    "large": "/assets/images/large.png"
   },
   "author": {
     "name": "Christian Kuhn",
