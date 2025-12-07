@@ -29,8 +29,7 @@ class SonoffS60ZBTPF extends ZigBeeDevice {
           reportOpts: {
             configureAttributeReporting: {
               minInterval: 1, // Device does not send data when on/off switch is
-                              // toggled for often than once a second. This is the
-                              // min value from interview.
+                              // toggled more often than once a second.
               maxInterval: 600, // Not 100% sure how this works.
             },
           },
